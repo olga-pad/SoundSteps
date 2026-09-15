@@ -10,8 +10,18 @@ function pool(){const p=banks[language][level].slice();(custom[language]||[]).fo
 function activeQueue(){const available=pool().map(x=>x[0]);let q=(queues[key()]||[]).filter(w=>available.includes(w));if(q.length!==5)q=available.slice(0,5);queues[key()]=q;save();return q;}
 function rotateQueue(){const q=activeQueue(),ready=q.filter(w=>list(mastered).includes(w));if(ready.length<4)return;const fresh=pool().map(x=>x[0]).find(w=>!q.includes(w)&&!list(mastered).includes(w));if(fresh){queues[key()]=q.map(w=>w===ready[0]?fresh:w);save();}}
 function start(){rotateQueue();const p=pool();session=activeQueue().map(w=>p.find(x=>x[0]===w)).filter(Boolean);index=0;draw();}
-function draw(){const x=session[index]||session[0];if(!x)return;$('word').textContent=x[0];$('pic').textContent=x[1];$('pic').hidden=true;}
-function help(){if(!session[index])return;$('pic').hidden=false;const w=session[index][0];if(!list(working).includes(w)&&!list(mastered).includes(w)){working[language]=[...list(working),w];save();}}
+const vowelSets={ru:'аеёиоуыэюя',en:'aeiouy',fr:'aeiouyàâäéèêëîïôöùûüÿœ'};
+function renderWord(word){
+  const root=$('word');
+  root.replaceChildren(...[...word].map(letter=>{
+    const span=document.createElement('span'),lower=letter.toLocaleLowerCase(language);
+    span.textContent=letter;
+    span.className=vowelSets[language].includes(lower)?'vowel':/\p{L}/u.test(letter)?'consonant':'sign';
+    return span;
+  }));
+}
+function draw(){const x=session[index]||session[0];if(!x)return;renderWord(x[0]);$('pic').textContent=x[1];$('pic').hidden=false;}
+function help(){if(!session[index])return;const w=session[index][0];if(!list(working).includes(w)&&!list(mastered).includes(w)){working[language]=[...list(working),w];save();}}
 $('helpToggle').onclick=help;$('next').onclick=()=>{const weighted=session.flatMap((x,n)=>Array(list(working).includes(x[0])?3:list(mastered).includes(x[0])?1:2).fill(n));index=weighted[Math.floor(Math.random()*weighted.length)];draw();};
 function setWord(w,state){mastered[language]=list(mastered).filter(x=>x!==w);working[language]=list(working).filter(x=>x!==w);if(state==='mastered')mastered[language].push(w);if(state==='working')working[language].push(w);save();rotateQueue();parentLists();}
 function row(w,controls){return '<div class="word-row"><strong>'+w+'</strong><span>'+controls+'</span></div>';}
