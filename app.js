@@ -2,15 +2,15 @@
 const $=id=>document.getElementById(id);
 const base={3:[['кот','🐱'],['дом','🏠'],['сок','🧃'],['мак','🌺'],['сыр','🧀'],['кит','🐋'],['мяч','⚽'],['лес','🌲'],['нос','👃'],['лук','🧅']],4:[['мама','👩'],['папа','👨'],['рука','✋'],['лиса','🦊'],['рыба','🐟'],['роза','🌹'],['сова','🦉'],['нога','🦵'],['луна','🌙'],['коза','🐐']],5:[['кошка','🐈'],['шапка','🧢'],['чашка','☕'],['книга','📖'],['лимон','🍋'],['белка','🐿️'],['сумка','👜'],['ложка','🥄'],['банан','🍌'],['арбуз','🍉']]};
 const vowels='аеёиоуыэюя';
-let level=Number(localStorage.getItem('ss-level')||3),style=localStorage.getItem('ss-style')||'normal';
+let level=Number(localStorage.getItem('ss-level')||3),style=localStorage.getItem('ss-style')||'normal';if(style==='hand')style='handLower';
 let progress=JSON.parse(localStorage.getItem('ss-progress')||'{}'),custom=JSON.parse(localStorage.getItem('ss-custom')||'[]');
 let current=null,usedHint=false,markedThisTurn=false,confirmationTimer=null,sessionWords=[],sessionIndex=0;
 function all(){const p=base[level].slice();custom.forEach(w=>{if([...w].length===level&&!p.some(x=>x[0]===w))p.push([w,'📖']);});return p;}
 function st(w){const old=progress[w]||{};return{self:Number(old.self||0),mastered:Boolean(old.mastered),masteredAt:Number(old.masteredAt||0)};}
 function save(){localStorage.setItem('ss-progress',JSON.stringify(progress));localStorage.setItem('ss-custom',JSON.stringify(custom));}
 function queue(){const available=all().map(x=>x[0]);let q=JSON.parse(localStorage.getItem('ss-queue-'+level)||'null');if(!Array.isArray(q))q=available.slice(0,5);q=q.filter(w=>available.includes(w));while(q.length<5){const n=available.find(w=>!q.includes(w));if(!n)break;q.push(n);}const ready=q.filter(w=>st(w).mastered);if(ready.length>=3){const fresh=available.find(w=>!q.includes(w)&&!st(w).mastered);if(fresh){const oldest=ready.slice().sort((a,b)=>{const at=st(a).masteredAt||Number.MAX_SAFE_INTEGER,bt=st(b).masteredAt||Number.MAX_SAFE_INTEGER;return at-b||q.indexOf(a)-q.indexOf(b);})[0];q=q.map(w=>w===oldest?fresh:w);}}localStorage.setItem('ss-queue-'+level,JSON.stringify(q));return q;}
-function shown(w){return style==='upper'?w.toLocaleUpperCase('ru'):w.toLocaleLowerCase('ru');}
-function render(w,target=$('word')){target.replaceChildren(...[...shown(w)].map(ch=>{const s=document.createElement('span');s.textContent=ch;s.className=vowels.includes(ch.toLowerCase())?'vowel':/\p{L}/u.test(ch)?'consonant':'sign';return s;}));target.classList.toggle('hand',style==='hand');}
+function shown(w){const lower=w.toLocaleLowerCase('ru');if(style==='upper'||style==='handUpper')return lower.toLocaleUpperCase('ru');if(style==='title'||style==='handTitle')return lower.charAt(0).toLocaleUpperCase('ru')+lower.slice(1);return lower;}
+function render(w,target=$('word')){target.replaceChildren(...[...shown(w)].map(ch=>{const s=document.createElement('span');s.textContent=ch;s.className=vowels.includes(ch.toLowerCase())?'vowel':/\p{L}/u.test(ch)?'consonant':'sign';return s;}));target.classList.toggle('hand',style.startsWith('hand'));}
 function speak(text,rate=.72){if(!('speechSynthesis'in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='ru-RU';u.rate=rate;speechSynthesis.speak(u);}
 function hideConfirmation(){clearTimeout(confirmationTimer);$('confirmation').classList.remove('show');$('readOk').classList.remove('done');}
 function resetTurn(){hideConfirmation();usedHint=false;markedThisTurn=false;$('readOk').disabled=false;$('readOk').title='Прочитал сам';$('confirmation').textContent='';}
