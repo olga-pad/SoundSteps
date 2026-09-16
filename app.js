@@ -14,9 +14,9 @@ function render(w,target=$('word')){target.replaceChildren(...[...shown(w)].map(
 function speak(text,rate=.72){if(!('speechSynthesis'in window))return;speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang='ru-RU';u.rate=rate;speechSynthesis.speak(u);}
 function pick(){clearTimeout(rewardTimer);const q=queue(),weighted=q.flatMap(w=>Array(st(w).mastered?1:(st(w).help+st(w).no?4:2)).fill(w));let w=weighted[Math.floor(Math.random()*weighted.length)];if(current&&q.length>1){for(let i=0;i<8&&w===current[0];i++)w=weighted[Math.floor(Math.random()*weighted.length)];}current=all().find(x=>x[0]===w)||all()[0];usedAudio=false;usedPicture=false;render(current[0]);$('pic').textContent=current[1];$('pic').hidden=true;$('reward').textContent='';$('lastWord').textContent=current[0];}
 function audioHelp(){if(!current)return;usedAudio=true;speak(current[0],.72);}
-function showPicture(){if(!current)return;usedPicture=true;$('pic').hidden=false;speak(current[0]);}
-function next(){if(!current)return;$('pic').hidden=false;$('reward').textContent='';speak(current[0]);rewardTimer=setTimeout(pick,1300);}
-$('help').onclick=audioHelp;$('showPicture').onclick=showPicture;$('pic').onclick=()=>current&&speak(current[0]);$('next').onclick=next;
+function showPicture(){if(!current)return;usedPicture=true;$('pic').hidden=false;}
+function next(){if(!current)return;$('pic').hidden=false;$('reward').textContent='';rewardTimer=setTimeout(pick,1300);}
+$('help').onclick=audioHelp;$('showPicture').onclick=showPicture;$('pic').onclick=()=>{};$('next').onclick=next;
 function parentRender(){const q=queue();$('queue').replaceChildren(...q.map(w=>{const d=document.createElement('div');d.className='word-row';const s=st(w),label=s.mastered?'освоено':(s.help+s.no?'в работе':'новое');d.innerHTML='<strong>'+w+'</strong><span class="status">'+label+'</span>';return d;}));$('lastWord').textContent=current?current[0]:'—';$('level').value=String(level);$('letterStyle').value=style;}
 $('parentOpen').onclick=()=>{$('childView').hidden=true;$('parentView').hidden=false;parentRender();};$('parentBack').onclick=()=>{$('parentView').hidden=true;$('childView').hidden=false;render(current[0]);};
 $('letterStyle').onchange=e=>{style=e.target.value;localStorage.setItem('ss-style',style);if(current)render(current[0]);parentRender();};
