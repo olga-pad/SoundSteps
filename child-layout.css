@@ -8,12 +8,18 @@
 #childView .tab{min-height:46px;border-radius:20px;color:#123f73;font-weight:750}
 #childView .tab.on{background:#2389e8;color:#fff;box-shadow:0 3px 10px #2389e83a}
 #childView .reading{min-height:0;flex:1;overflow:hidden;display:flex;flex-direction:column;justify-content:initial;text-align:center}
-#childView .stage{min-height:0;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px 0}
+#childView .stage{min-height:0;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px 0;position:relative}
 #childView .word{font-size:clamp(72px,13vw,124px);font-weight:800;letter-spacing:.025em;line-height:1.05;cursor:pointer}
 #childView .letter-card{font-size:clamp(120px,20vw,210px);font-weight:800;line-height:.95;cursor:pointer}
 #childView .picture,#childView .letter-picture{width:100%;height:150px;min-height:150px;margin:12px 0 2px;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;font-size:112px;line-height:1;border:0;cursor:pointer}
 #childView .picture[hidden],#childView .letter-picture[hidden]{display:flex!important;visibility:hidden}
 #childView .reward{min-height:18px;margin-top:0}
+#childView .lesson-nav{position:absolute;inset:0;pointer-events:none}
+#childView .nav-arrow{pointer-events:auto;position:absolute;top:50%;transform:translateY(-50%);width:104px;min-height:96px;padding:0;background:transparent;color:#123f73;box-shadow:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px}
+#childView .nav-arrow span{width:58px;height:58px;border:1px solid #cbd9ea;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:38px;line-height:1;box-shadow:0 3px 10px #123f7310}
+#childView .nav-arrow small{font-size:13px;font-weight:700}
+#childView .nav-prev{left:4px}.nav-next{right:4px}
+#childView .nav-arrow:disabled{opacity:.28;cursor:default}
 #childView .actions{flex:0 0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:min(100%,900px);margin:0 auto}
 #childView .actions button{min-height:58px;padding:12px 16px;border-radius:16px;font-size:17px;box-shadow:0 3px 10px #123f7312}
 #childView .help{background:#2389e8;color:#fff}
@@ -21,9 +27,9 @@
 #childView .mastery-btn{background:#35b96f;color:#fff}
 #childView .primary{background:#123f73;color:#fff}
 #childView .confirmation{grid-column:1/-1;min-height:0;height:0;margin:0;overflow:visible;color:#188754;font-size:14px;font-weight:750}
-#childView #readingView .primary{grid-column:1/-1;width:min(100%,300px);justify-self:end}
-#childView #lettersView .actions{grid-template-columns:repeat(3,1fr)}
-#childView #lettersView .primary{grid-column:auto;width:auto}
+#childView #readingView .primary{display:none}
+#childView #lettersView .actions{grid-template-columns:1fr 1fr}
+#childView #lettersView .primary{display:none}
 #childView .finish{min-height:0;flex:1;color:#123f73}
 #childView .continue{background:#2389e8}
 @media(max-width:700px){
@@ -34,9 +40,12 @@
  #childView .tabs{margin-bottom:4px}
  #childView .stage{padding:2px 0}
  #childView .picture,#childView .letter-picture{height:112px;min-height:112px;margin:7px 0 0;font-size:82px}
+ #childView .nav-arrow{width:64px;min-height:72px}
+ #childView .nav-arrow span{width:44px;height:44px;font-size:29px}
+ #childView .nav-arrow small{display:none}
+ #childView .nav-prev{left:0}.nav-next{right:0}
  #childView .actions{grid-template-columns:1fr;gap:6px;width:min(100%,470px)}
  #childView .actions button{min-height:44px;padding:8px 14px;font-size:16px}
- #childView #readingView .primary{grid-column:auto;width:auto;justify-self:stretch}
  #childView #lettersView .actions{grid-template-columns:1fr}
  #childView .confirmation{grid-column:auto}
 }
@@ -49,6 +58,7 @@
  #childView .word{font-size:clamp(52px,11vw,88px)}
  #childView .letter-card{font-size:clamp(84px,18vw,145px)}
  #childView .picture,#childView .letter-picture{height:82px;min-height:82px;margin:3px 0 0;font-size:62px}
+ #childView .nav-arrow span{width:42px;height:42px;font-size:27px}
  #childView .actions{gap:4px}
  #childView .actions button{min-height:38px;padding:6px 12px}
 }
