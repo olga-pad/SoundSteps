@@ -1,0 +1,14 @@
+/* Stable, scroll-free child lesson layout. Parent view remains scrollable. */
+#childView{height:100dvh;overflow:hidden;display:flex;flex-direction:column;padding-top:12px;padding-bottom:12px}
+#childView header{min-height:44px;flex:0 0 auto}
+#childView .tabs{margin:7px 0;flex:0 0 auto}
+#childView .reading{min-height:0;flex:1;overflow:hidden;justify-content:initial}
+#childView .stage{min-height:0;flex:1;padding:6px 0;justify-content:center}
+#childView .actions{flex:0 0 auto;gap:8px}
+#childView .actions button{min-height:46px;padding:10px 16px}
+#childView .picture,#childView .letter-picture{width:100%;height:104px;min-height:104px;margin:22px 0;background:transparent;padding:0;display:flex;align-items:center;justify-content:center}
+#childView .picture[hidden],#childView .letter-picture[hidden]{display:flex!important;visibility:hidden}
+#childView .reward{min-height:18px;margin-top:0}
+#childView .confirmation{min-height:18px;margin-top:4px}
+@media(max-width:430px){#childView{padding-top:8px;padding-bottom:8px}#childView .tabs{margin:5px 0}#childView .stage{padding:3px 0}#childView .picture,#childView .letter-picture{height:92px;min-height:92px;margin:16px 0;font-size:70px}#childView .actions{gap:6px}#childView .actions button{min-height:42px;padding:8px 14px}}
+@media(max-height:700px){#childView header{min-height:38px}#childView .tabs{margin:3px 0}#childView .picture,#childView .letter-picture{height:76px;min-height:76px;margin:10px 0;font-size:60px}#childView .word{font-size:clamp(52px,16vw,88px)}#childView .letter-card{font-size:clamp(78px,25vw,135px)}#childView .actions{gap:5px}#childView .actions button{min-height:38px;padding:6px 12px}}
