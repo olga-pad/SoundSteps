@@ -1,5 +1,5 @@
 'use strict';
-document.write('<script src="./app-core.js?v=43"><\/script>');
+document.write('<script src="./app-core.js?v=44"><\/script>');
 window.addEventListener('DOMContentLoaded',()=>{
   document.getElementById('letterNext')?.remove();document.getElementById('next')?.remove();
   if(!localStorage.getItem('ss-style') && !(Storage.load()||{}).style){style='upper';persist();}
@@ -18,7 +18,6 @@ window.addEventListener('DOMContentLoaded',()=>{
   wordPictureBtn.onclick=()=>{if(!current)return;wordPicture.hidden=!wordPicture.hidden;setActionLabels();};
   const completeLesson=(kind)=>{if(kind==='words'){$('readingView').hidden=true;$('finishView').hidden=false;}else{$('lettersView').hidden=true;$('letterFinishView').hidden=false;}};
   const makeNav=(view,kind)=>{const stage=view?.querySelector('.stage');if(!stage)return;const nav=document.createElement('div');nav.className='lesson-nav';const prev=document.createElement('button');prev.type='button';prev.className='nav-arrow nav-prev';prev.setAttribute('aria-label','Предыдущий');prev.innerHTML=icon('left');const next=document.createElement('button');next.type='button';next.className='nav-arrow nav-next';next.setAttribute('aria-label','Следующий');next.innerHTML=icon('right');nav.append(prev,next);stage.append(nav);const state=()=>({i:kind==='words'?sessionIndex:letterIndex,total:kind==='words'?sessionWords.length:letterSession.length});const refresh=()=>{const {i,total}=state();prev.hidden=i<=0;next.hidden=total<=0;};prev.onclick=()=>{if(kind==='words'){if(sessionIndex<=0)return;sessionIndex--;showSessionWord();}else{if(letterIndex<=0)return;letterIndex--;showLetter();}setActionLabels();refresh();};next.onclick=()=>{const {i,total}=state();if(!total)return;if(i>=total-1){completeLesson(kind);return;}if(kind==='words'){sessionIndex++;showSessionWord();}else{letterIndex++;showLetter();}setActionLabels();refresh();};refresh();};makeNav(document.getElementById('readingView'),'words');makeNav(document.getElementById('lettersView'),'letters');
-  // In Sounds, “Прочитал сам” is both confirmation and forward action: one tap records success and advances.
   const baseLetterMastery=letterMastery.onclick;
   letterMastery.onclick=(event)=>{if(letterMastery.disabled)return;if(typeof baseLetterMastery==='function')baseLetterMastery.call(letterMastery,event);document.querySelector('#lettersView .nav-next')?.click();};
   switchSection(section==='letters'?'letters':'words');setActionLabels();requestAnimationFrame(setActionLabels);setTimeout(setActionLabels,0);
