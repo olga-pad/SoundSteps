@@ -1,14 +1,54 @@
-/* Stable, scroll-free child lesson layout. Parent view remains scrollable. */
-#childView{height:100dvh;overflow:hidden;display:flex;flex-direction:column;padding-top:12px;padding-bottom:12px}
-#childView header{min-height:44px;flex:0 0 auto}
-#childView .tabs{margin:7px 0;flex:0 0 auto}
-#childView .reading{min-height:0;flex:1;overflow:hidden;justify-content:initial}
-#childView .stage{min-height:0;flex:1;padding:6px 0;justify-content:center}
-#childView .actions{flex:0 0 auto;gap:8px}
-#childView .actions button{min-height:46px;padding:10px 16px}
-#childView .picture,#childView .letter-picture{width:100%;height:104px;min-height:104px;margin:22px 0;background:transparent;padding:0;display:flex;align-items:center;justify-content:center}
+/* Phonika child lesson — bright, calm, app-like visual system. Parent view remains scrollable. */
+#childView{height:100dvh;overflow:hidden;display:flex;flex-direction:column;max-width:1180px;padding:16px 24px 18px;background:#fffdf8;color:#123f73}
+#childView header{min-height:58px;flex:0 0 auto;display:flex;align-items:center;gap:18px}
+#childView .brand{font-size:28px;font-weight:850;letter-spacing:-.02em;color:#123f73}
+#childView .brand .quiet{color:#123f73}
+#childView #parentOpen{margin-left:auto;border:1px solid #cbd9ea;background:#fff;color:#123f73;box-shadow:0 2px 8px #123f7310;border-radius:15px;padding:10px 18px}
+#childView .tabs{width:min(100%,390px);margin:0 auto 8px;padding:4px;background:#edf4fb;border:1px solid #d5e1ef;border-radius:24px;flex:0 0 auto}
+#childView .tab{min-height:46px;border-radius:20px;color:#123f73;font-weight:750}
+#childView .tab.on{background:#2389e8;color:#fff;box-shadow:0 3px 10px #2389e83a}
+#childView .reading{min-height:0;flex:1;overflow:hidden;display:flex;flex-direction:column;justify-content:initial;text-align:center}
+#childView .stage{min-height:0;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px 0}
+#childView .word{font-size:clamp(72px,13vw,124px);font-weight:800;letter-spacing:.025em;line-height:1.05;cursor:pointer}
+#childView .letter-card{font-size:clamp(120px,20vw,210px);font-weight:800;line-height:.95;cursor:pointer}
+#childView .picture,#childView .letter-picture{width:100%;height:150px;min-height:150px;margin:12px 0 2px;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;font-size:112px;line-height:1;border:0;cursor:pointer}
 #childView .picture[hidden],#childView .letter-picture[hidden]{display:flex!important;visibility:hidden}
 #childView .reward{min-height:18px;margin-top:0}
-#childView .confirmation{min-height:18px;margin-top:4px}
-@media(max-width:430px){#childView{padding-top:8px;padding-bottom:8px}#childView .tabs{margin:5px 0}#childView .stage{padding:3px 0}#childView .picture,#childView .letter-picture{height:92px;min-height:92px;margin:16px 0;font-size:70px}#childView .actions{gap:6px}#childView .actions button{min-height:42px;padding:8px 14px}}
-@media(max-height:700px){#childView header{min-height:38px}#childView .tabs{margin:3px 0}#childView .picture,#childView .letter-picture{height:76px;min-height:76px;margin:10px 0;font-size:60px}#childView .word{font-size:clamp(52px,16vw,88px)}#childView .letter-card{font-size:clamp(78px,25vw,135px)}#childView .actions{gap:5px}#childView .actions button{min-height:38px;padding:6px 12px}}
+#childView .actions{flex:0 0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:min(100%,900px);margin:0 auto}
+#childView .actions button{min-height:58px;padding:12px 16px;border-radius:16px;font-size:17px;box-shadow:0 3px 10px #123f7312}
+#childView .help{background:#2389e8;color:#fff}
+#childView .picture-btn{background:#fff;color:#123f73;border:1px solid #cbd9ea}
+#childView .mastery-btn{background:#35b96f;color:#fff}
+#childView .primary{background:#123f73;color:#fff}
+#childView .confirmation{grid-column:1/-1;min-height:0;height:0;margin:0;overflow:visible;color:#188754;font-size:14px;font-weight:750}
+#childView #readingView .primary{grid-column:1/-1;width:min(100%,300px);justify-self:end}
+#childView #lettersView .actions{grid-template-columns:repeat(3,1fr)}
+#childView #lettersView .primary{grid-column:auto;width:auto}
+#childView .finish{min-height:0;flex:1;color:#123f73}
+#childView .continue{background:#2389e8}
+@media(max-width:700px){
+ #childView{padding:10px 14px 12px}
+ #childView header{min-height:48px}
+ #childView .brand{font-size:22px}
+ #childView #parentOpen{padding:8px 12px;min-height:42px}
+ #childView .tabs{margin-bottom:4px}
+ #childView .stage{padding:2px 0}
+ #childView .picture,#childView .letter-picture{height:112px;min-height:112px;margin:7px 0 0;font-size:82px}
+ #childView .actions{grid-template-columns:1fr;gap:6px;width:min(100%,470px)}
+ #childView .actions button{min-height:44px;padding:8px 14px;font-size:16px}
+ #childView #readingView .primary{grid-column:auto;width:auto;justify-self:stretch}
+ #childView #lettersView .actions{grid-template-columns:1fr}
+ #childView .confirmation{grid-column:auto}
+}
+@media(max-height:700px){
+ #childView{padding-top:7px;padding-bottom:7px}
+ #childView header{min-height:40px}
+ #childView .brand{font-size:21px}
+ #childView .tabs{margin-bottom:2px}
+ #childView .tab{min-height:38px}
+ #childView .word{font-size:clamp(52px,11vw,88px)}
+ #childView .letter-card{font-size:clamp(84px,18vw,145px)}
+ #childView .picture,#childView .letter-picture{height:82px;min-height:82px;margin:3px 0 0;font-size:62px}
+ #childView .actions{gap:4px}
+ #childView .actions button{min-height:38px;padding:6px 12px}
+}
