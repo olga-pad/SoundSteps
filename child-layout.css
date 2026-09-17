@@ -1,11 +1,15 @@
-/* Phonika child lesson — reference layout: navigation at the sides, three actions at the bottom. */
+/* Fonika child lesson — reference layout: side navigation and three bottom actions. */
 #childView{height:100dvh;overflow:hidden;display:flex;flex-direction:column;max-width:1180px;padding:16px 24px 18px;background:#fffdf8;color:#123f73}
-#childView header{min-height:58px;flex:0 0 auto;display:flex;align-items:center;gap:18px}
-#childView .brand{font-size:28px;font-weight:850;letter-spacing:-.02em;color:#123f73}
-#childView .brand .quiet{color:#123f73}
-#childView #parentOpen{margin-left:auto;border:1px solid #cbd9ea;background:#fff;color:#123f73;box-shadow:0 2px 8px #123f7310;border-radius:15px;padding:10px 18px}
-#childView .tabs{width:min(100%,390px);margin:0 auto 8px;padding:4px;background:#edf4fb;border:1px solid #d5e1ef;border-radius:24px;flex:0 0 auto}
-#childView .tab{min-height:46px;border-radius:20px;color:#123f73;font-weight:750}
+#childView header{min-height:72px;flex:0 0 auto;display:flex;align-items:center;gap:18px}
+#childView .brand-lockup{display:flex;align-items:center;gap:12px;color:#123f73;line-height:1}
+#childView .brand-lockup .brand-home{width:48px;height:48px;display:flex;align-items:center;justify-content:center}
+#childView .brand-lockup .brand-home svg{width:45px;height:45px;fill:currentColor}
+#childView .brand-lockup strong{display:block;font-size:31px;font-weight:850;letter-spacing:-.025em}
+#childView .brand-lockup small{display:block;margin-top:6px;font-size:15px;font-weight:650;color:#7d8599;letter-spacing:0}
+#childView #parentOpen{margin-left:auto;border:1px solid #cbd9ea;background:#fff;color:#123f73;box-shadow:0 2px 8px #123f7310;border-radius:15px;padding:10px 18px;display:flex;align-items:center;gap:10px}
+#childView #parentOpen svg{width:26px;height:26px;fill:#123f73}
+#childView .tabs{width:min(100%,390px);margin:-64px auto 8px;padding:4px;background:#edf4fb;border:1px solid #d5e1ef;border-radius:24px;flex:0 0 auto;position:relative;z-index:2}
+#childView .tab{min-height:52px;border-radius:20px;color:#123f73;font-weight:750}
 #childView .tab.on{background:#2389e8;color:#fff;box-shadow:0 3px 10px #2389e83a}
 #childView .reading{min-height:0;flex:1;overflow:hidden;display:flex;flex-direction:column;text-align:center}
 #childView .stage{min-height:0;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:4px 145px;position:relative}
@@ -14,50 +18,25 @@
 #childView .picture,#childView .letter-picture{width:100%;height:150px;min-height:150px;margin:12px 0 2px;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;font-size:112px;line-height:1;border:0;cursor:pointer}
 #childView .picture[hidden],#childView .letter-picture[hidden]{display:flex!important;visibility:hidden}
 #childView .reward{min-height:18px;margin-top:0}
-/* Arrows live at the far left/right of the whole learning field, as in the reference. */
 #childView .lesson-nav{position:absolute;inset:0;pointer-events:none}
 #childView .nav-arrow{pointer-events:auto;position:absolute;top:44%;transform:translateY(-50%);width:118px;min-height:110px;padding:0;background:transparent;color:#123f73;box-shadow:none;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
 #childView .nav-arrow span{width:68px;height:68px;border:1.5px solid #cbd9ea;border-radius:50%;background:#fff;display:flex;align-items:center;justify-content:center;font-size:44px;font-weight:500;line-height:1;box-shadow:0 3px 10px #123f7310}
 #childView .nav-arrow small{font-size:15px;font-weight:750;white-space:nowrap}
 #childView .nav-prev{left:0}.nav-next{right:0}
 #childView .nav-arrow:disabled{opacity:.28;cursor:default}
-/* Exactly three child actions across the bottom. */
-#childView .actions{flex:0 0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;width:min(100%,900px);margin:0 auto}
-#childView .actions button{min-height:62px;padding:12px 16px;border-radius:16px;font-size:17px;box-shadow:0 3px 10px #123f7312}
+#childView .actions{flex:0 0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;width:min(100%,900px);margin:0 auto}
+#childView .actions button{min-height:68px;padding:12px 18px;border-radius:17px;font-size:18px;box-shadow:0 4px 12px #123f7315;display:flex;align-items:center;justify-content:center;gap:11px}
+#childView .actions button svg{width:32px;height:32px;flex:0 0 auto}
 #childView .help{background:#2389e8;color:#fff}
-#childView .picture-btn{background:#fff;color:#123f73;border:1px solid #cbd9ea}
+#childView .help svg{fill:currentColor}
+#childView .picture-btn{background:#f8fbff;color:#123f73;border:1px solid #cbd9ea}
+#childView .picture-btn svg{fill:#123f73}
 #childView .mastery-btn{background:#35b96f;color:#fff}
+#childView .mastery-btn svg{fill:#fff}
 #childView .primary{display:none}
 #childView .confirmation{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 #childView #lettersView .actions{grid-template-columns:1fr 1fr;width:min(100%,600px)}
 #childView .finish{min-height:0;flex:1;color:#123f73}
 #childView .finish .primary,#childView .continue{display:block;background:#2389e8;color:#fff}
-@media(max-width:700px){
- #childView{padding:10px 14px 12px}
- #childView header{min-height:48px}
- #childView .brand{font-size:22px}
- #childView #parentOpen{padding:8px 12px;min-height:42px}
- #childView .tabs{margin-bottom:4px}
- #childView .stage{padding:2px 62px}
- #childView .picture,#childView .letter-picture{height:112px;min-height:112px;margin:7px 0 0;font-size:82px}
- #childView .nav-arrow{width:58px;min-height:60px;top:45%}
- #childView .nav-arrow span{width:46px;height:46px;font-size:30px}
- #childView .nav-arrow small{display:none}
- #childView .actions{grid-template-columns:1fr;gap:6px;width:min(100%,470px)}
- #childView .actions button{min-height:44px;padding:8px 14px;font-size:16px}
- #childView #lettersView .actions{grid-template-columns:1fr;width:min(100%,470px)}
-}
-@media(max-height:700px){
- #childView{padding-top:7px;padding-bottom:7px}
- #childView header{min-height:40px}
- #childView .brand{font-size:21px}
- #childView .tabs{margin-bottom:2px}
- #childView .tab{min-height:38px}
- #childView .word{font-size:clamp(52px,11vw,88px)}
- #childView .letter-card{font-size:clamp(84px,18vw,145px)}
- #childView .picture,#childView .letter-picture{height:82px;min-height:82px;margin:3px 0 0;font-size:62px}
- #childView .nav-arrow span{width:42px;height:42px;font-size:27px}
- #childView .nav-arrow small{font-size:12px}
- #childView .actions{gap:5px}
- #childView .actions button{min-height:40px;padding:6px 12px}
-}
+@media(max-width:700px){#childView{padding:10px 14px 12px}#childView header{min-height:58px}#childView .brand-lockup .brand-home{width:36px;height:36px}#childView .brand-lockup .brand-home svg{width:34px;height:34px}#childView .brand-lockup strong{font-size:21px}#childView .brand-lockup small{font-size:11px;margin-top:4px}#childView #parentOpen{padding:8px 10px;min-height:42px;font-size:0}#childView #parentOpen svg{width:25px;height:25px}#childView .tabs{margin:-48px auto 4px;width:min(52%,300px)}#childView .tab{min-height:42px}#childView .stage{padding:2px 62px}#childView .picture,#childView .letter-picture{height:112px;min-height:112px;margin:7px 0 0;font-size:82px}#childView .nav-arrow{width:58px;min-height:60px;top:45%}#childView .nav-arrow span{width:46px;height:46px;font-size:30px}#childView .nav-arrow small{display:none}#childView .actions{grid-template-columns:1fr;gap:6px;width:min(100%,470px)}#childView .actions button{min-height:44px;padding:8px 14px;font-size:16px}#childView #lettersView .actions{grid-template-columns:1fr;width:min(100%,470px)}}
+@media(max-height:700px){#childView{padding-top:7px;padding-bottom:7px}#childView header{min-height:52px}#childView .tabs{margin-top:-44px;margin-bottom:2px}#childView .tab{min-height:38px}#childView .word{font-size:clamp(52px,11vw,88px)}#childView .letter-card{font-size:clamp(84px,18vw,145px)}#childView .picture,#childView .letter-picture{height:82px;min-height:82px;margin:3px 0 0;font-size:62px}#childView .nav-arrow span{width:42px;height:42px;font-size:27px}#childView .nav-arrow small{font-size:12px}#childView .actions{gap:5px}#childView .actions button{min-height:40px;padding:6px 12px}}
